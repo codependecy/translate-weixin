@@ -1,0 +1,18 @@
+<!--index.wxml-->
+<view class="container">
+  <view class='change'>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker">
+      翻译到：{{array[index]}}
+      <text class="iconfont icon-down"></text>
+    </view>
+  </picker>
+  </view>
+  <view class='input'>
+    <textarea bindfocus="onFocus" bindblur="onBlur" value='{{query}}'></textarea>
+    <text class="iconfont icon-close" hidden="{{hideIcon}}" bindtap='cleartext'></text>
+  </view>
+  <view class='translation'>
+    <text>译文</text><text class='translation-txt'>{{transmsg}}</text>
+  </view>
+</view>
