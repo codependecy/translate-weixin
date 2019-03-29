@@ -5,12 +5,16 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#1c1b21",
+    "navigationBarTitleText": "火山哥翻译工具",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "red"
   },
   "tabBar":{
+    "borderStyle": "white",
+    "color": "#595959",
     "position": "top",
+    "selectedColor": "#1c1b21",
     "list": [
       {
         "pagePath": "pages/index/index",

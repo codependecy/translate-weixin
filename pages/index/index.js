@@ -1,23 +1,13 @@
 //index.js
 //获取应用实例
-const app = getApp()
-
 // 输入框聚焦的时候icon-close出现
 // 输入框失焦的时候icon-close关闭
 // 点击icon-close清空input下面textarea的内容
 
+import { translate } from '../../utils/api.js'
+const app = getApp()
 
 Page({
-  onFocus:function(){
-    this.setData({ 'hideIcon': false })
-  },
-  onBlur:function(){
-    this.setData({ 'hideIcon': true })
-    // this.translate()
-  },
-  cleartext:function(){
-    this.setData({ query: '', hideIcon: true,})
-  },
   data: {
     hideIcon: true,
     query:'',
@@ -61,34 +51,48 @@ Page({
       }
     ],
     index: 0,
+    language:'en',
   },
   bindPickerChange(e) {
     self=this
-    console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      index: e.detail.value
+      index: e.detail.value,
+      language: this.data.objectArray[e.detail.value].lang
     })
-    console.log(this.data.index,e.detail.value)
+    this.onconfirm()
   },
-  translate:function(){
-    self=this
-    wx.request({
-      url: 'https://api.fanyi.baidu.com/api/trans/vip/translate', // 仅为示例，并非真实的接口地址
-      data:{
-        q:"apple",
-        from:"en",
-        to:"zh",
-        appid:"20190328000282122",
-        salt:"1435660288",
-        sign:"05ab534515144148515500311d2d5dca"
-      },
-      success(res) {
-        self.data.transmsg = res.data.trans_result[0].dst
-        self.setData({ transmsg: self.data.transmsg })
-      }
+  onFocus: function () {
+    this.setData({ 'hideIcon': false })
+  },
+  onInput:function(e){
+    this.setData({ 'query': e.detail.value })
+  },
+  onconfirm: function () {
+    if (!this.data.query) return
+    translate(this.data.query, 'auto', this.data.language).then(res => {
+      this.setData({ 'transmsg': res.trans_result })
+
+      let history = wx.getStorageSync('history') || []
+      history.unshift({ query: this.data.query, transmsg: res.trans_result[0].dst, language: this.data.language, index: this.data.index,  })
+      history.length = history.length > 10 ? 10 : history.length
+      wx.setStorageSync('history', history)
     })
-    // this.setData({ transmsg: this.data.transmsg })
-  }
+  },
+  cleartext: function () {
+    this.setData({ query: '', hideIcon: true, transmsg:[] })
+
+  },
+  onShow: function () {
+    console.log('onshow....')
+    this.onconfirm()
+  },
+  onLoad: function (options) {
+    console.log('lonload..')
+    console.log(options)
+    if (options.query) {
+      this.setData({ query: options.query, index: options.index, language: options.language})
+    }
+  },
 })
 
 

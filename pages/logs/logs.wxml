@@ -1,4 +1,10 @@
 <!--logs.wxml-->
-<view class="container log-list">
-  <text>这里是历史纪录</text>
-</view>
+<scroll-view scroll-y class="container">
+  <view class="history-list">
+    <view class="title">翻译历史</view>
+    <view class="item" wx:for="{{history}}" wx:key="index" bindtap='onTapItem' data-query="{{item.query}}" data-language="{{item.language}}"  data-index="{{item.index}}">
+      <view class="query">{{item.query}}</view>
+      <view class="result">{{item.transmsg}}</view>
+    </view>
+  </view>
+</scroll-view>

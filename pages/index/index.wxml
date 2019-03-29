@@ -9,10 +9,13 @@
   </picker>
   </view>
   <view class='input'>
-    <textarea bindfocus="onFocus" bindblur="onBlur" value='{{query}}'></textarea>
+    <textarea placeholder='请输入要翻译的文本' placeholder-style='color: #8995a1'   bindinput='onInput' bindfocus="onFocus" bindconfirm="onconfirm" bindblur='onconfirm'  value='{{query}}'></textarea>
     <text class="iconfont icon-close" hidden="{{hideIcon}}" bindtap='cleartext'></text>
   </view>
   <view class='translation'>
-    <text>译文</text><text class='translation-txt'>{{transmsg}}</text>
+    <text>译文</text>
+    <view class="text-result" wx:for="{{transmsg}}" wx:key="index">
+        <text class='translation-txt' selectable="true">{{item.dst}}</text>
+      </view>
   </view>
 </view>
