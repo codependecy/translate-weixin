@@ -1,2 +1,2 @@
 # translate-weixin
-![Image text](https://mp.weixin.qq.com/wxopen/qrcode?action=show&type=2&fakeid=3856042639&token=1059795922)
+![Image text](https://github.com/codependecy/translate-weixin/blob/master/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190330224905.jpg)
